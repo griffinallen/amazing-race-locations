@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet"> 
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin=""/>
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+        
+
+        <style>
+        head{
+            background: #FFFAFA;
+        }
+        body{
+            background: #FFFAFA;
+        }
+        #map {
+            width: 90vw;
+            margin: 4vw;
+            -webkit-box-shadow: 0px 0px 5px 3px #000;
+            box-shadow: 0px 0px 5px 3px #000;
+            height: 90vh;
+        }
+        #selector {
+            width: 40vw;
+            margin: 4vw;
+        }
+
+        #navbar {
+            background: #FFFAFA;
+            height: fit-content;
+            width: fit-content;
+            font-size: calc(10px + 2vmin);
+            font-family: "Poppins";
+        }
+        .inner-item {
+            cursor: "pointer";
+            text-decoration: none;
+            color: black;
+        }
+        .inner-item:hover {
+            border-bottom: solid 2px black;
+        }
+
+        .all-toggle-buttons{
+            display: flex;
+        }
+        .toggle-button-container{
+            margin: 1vw;
+        }
+
+        </style>
+
+        <title>Amazing Race Locations</title>
+    </head>
+
+    <div id="navbar">
+        <h6><a class="inner-item" href="https://griffinallen.github.io/portfolio/">Back to portfolio</a></h6>
+    </div>
+
+    <body>
+
+        
+
+
+        <div id="selector">
+            <h4>Select the seasons you'd like to see </h4>
+            <div class="all-toggle-buttons">
+                <div class="toggle-button-container"><label for="s1">1</label><input type="checkbox" id="s1" class="toggle-button" onclick="check()" /></div>
+                <div class="toggle-button-container"><label for="s2">2</label><input type="checkbox" id="s2" class="toggle-button" onclick="check()" /></div>
+                <div class="toggle-button-container"><label for="s3">3</label><input type="checkbox" id="s3" class="toggle-button" onclick="check()" /></div>
+                <div class="toggle-button-container"><label for="s4">4</label><input type="checkbox" id="s4" class="toggle-button" onclick="check()" /></div>
+                <div class="toggle-button-container"><label for="s5">5</label><input type="checkbox" id="s5" class="toggle-button" onclick="check()" /></div>
+                <div class="toggle-button-container"><label for="s6">6</label><input type="checkbox" id="s6" class="toggle-button" onclick="check()" /></div>
+                <div class="toggle-button-container"><label for="s7">7</label><input type="checkbox" id="s7" class="toggle-button" onclick="check()" /></div>
+                <div class="toggle-button-container"><label for="s8">8</label><input type="checkbox" id="s8" class="toggle-button" onclick="check()" /></div>
+                <div class="toggle-button-container"><label for="s9">9</label><input type="checkbox" id="s9" class="toggle-button" onclick="check()" /></div>
+                <div class="toggle-button-container"><label for="s10">10</label><input type="checkbox" id="s10" class="toggle-button" onclick="check()" /></div>
+                <div class="toggle-button-container"><label for="s11">11</label><input type="checkbox" id="s11" class="toggle-button" onclick="check()" /></div>
+                <div class="toggle-button-container"><label for="s12">12</label><input type="checkbox" id="s12" class="toggle-button" onclick="check()" /></div>
+                <div class="toggle-button-container"><label for="s13">13</label><input type="checkbox" id="s13" class="toggle-button" onclick="check()" /></div>
+                <div class="toggle-button-container"><label for="s14">14</label><input type="checkbox" id="s14" class="toggle-button" onclick="check()" /></div>
+                <div class="toggle-button-container"><label for="s15">15</label><input type="checkbox" id="s15" class="toggle-button" onclick="check()" /></div>
+                <div class="toggle-button-container"><label for="s16">16</label><input type="checkbox" id="s16" class="toggle-button" onclick="check()" /></div>
+                <div class="toggle-button-container"><label for="s17">17</label><input type="checkbox" id="s17" class="toggle-button" onclick="check()" /></div>
+                <div class="toggle-button-container"><label for="s18">18</label><input type="checkbox" id="s18" class="toggle-button" onclick="check()" /></div>
+                <div class="toggle-button-container"><label for="s19">19</label><input type="checkbox" id="s19" class="toggle-button" onclick="check()" /></div>
+                <div class="toggle-button-container"><label for="s20">20</label><input type="checkbox" id="s20" class="toggle-button" onclick="check()" /></div>
+                <div class="toggle-button-container"><label for="s21">21</label><input type="checkbox" id="s21" class="toggle-button" onclick="check()" /></div>
+                <div class="toggle-button-container"><label for="s22">22</label><input type="checkbox" id="s22" class="toggle-button" onclick="check()" /></div>
+                <div class="toggle-button-container"><label for="s23">23</label><input type="checkbox" id="s23" class="toggle-button" onclick="check()" /></div>
+                <div class="toggle-button-container"><label for="s24">24</label><input type="checkbox" id="s24" class="toggle-button" onclick="check()" /></div>
+                <div class="toggle-button-container"><label for="s25">25</label><input type="checkbox" id="s25" class="toggle-button" onclick="check()" /></div>
+                <div class="toggle-button-container"><label for="s26">26</label><input type="checkbox" id="s26" class="toggle-button" onclick="check()" /></div>
+                <div class="toggle-button-container"><label for="s27">27</label><input type="checkbox" id="s27" class="toggle-button" onclick="check()" /></div>
+                <div class="toggle-button-container"><label for="s28">28</label><input type="checkbox" id="s28" class="toggle-button" onclick="check()" /></div>
+                <div class="toggle-button-container"><label for="s29">29</label><input type="checkbox" id="s29" class="toggle-button" onclick="check()" /></div>
+                <div class="toggle-button-container"><label for="s30">30</label><input type="checkbox" id="s30" class="toggle-button" onclick="check()" /></div>
+                <div class="toggle-button-container"><label for="s31">31</label><input type="checkbox" id="s31" class="toggle-button" onclick="check()" /></div>
+                <div class="toggle-button-container"><label for="s32">32</label><input type="checkbox" id="s32" class="toggle-button" onclick="check()" /></div>
+                <div class="toggle-button-container"><label for="s33">33</label><input type="checkbox" id="s33" class="toggle-button" onclick="check()" /></div>
+            </div>
+
+        </div>
+        <div id="map">
+        </div>
+
+
+        <script type="text/javascript" src="./data/data.js"></script>
+
+
+        <script>
+            function check(){
+                var seasons_selected = []
+                layerGroup.clearLayers();
+                for (var z=1; z<amazing_race_data.length; z++){
+                    if (document.getElementById("s"+z).checked) seasons_selected.push(z);
+                }
+                console.log(seasons_selected)
+
+                var toMarkers = [[]]
+            
+                var totalCount = 0;
+                var totalmCount = 0;
+                console.log("hi there")
+                console.log(seasons_selected)
+                for (s of seasons_selected){
+                    var count = 0;
+                    var mCount = 0;
+                    for (var i=1; i<Object.keys(amazing_race_data[s]).length-1; i++){
+                        if (amazing_race_data[s][i]=="" || amazing_race_data[s][i+1]=="") break;
+                        if (amazing_race_data[s][i][1]!=amazing_race_data[s][i+1][1]){
+                            toMarkers[totalmCount] = [
+                                amazing_race_data[s][i][0],
+                                totalmCount, 
+                                mCount,
+                                [
+                                    amazing_race_data[s][i][2], 
+                                    amazing_race_data[s][i][1]
+                                ]
+                            ]
+                            mCount++;
+                            totalmCount++;
+                        }
+                        count++;
+                        totalCount++;
+                    }
+            }
+            console.log(toMarkers);
+
+            latlngs = []
+
+            
+                
+            toMarkers.forEach(m => {
+                var marker = L.marker([m[3][0], m[3][1]], {icon:customIcon}).addTo(layerGroup).bindPopup(m[2]+1 + ": " + m[0]);
+                latlngs.push([m[3][0], m[3][1]])
+            });
+            var polyline = L.polyline(latlngs, {color: "black" }).addTo(layerGroup);
+
+            // colors[seasons_selected.length%4]
+            
+            }
+            
+
+
+            var map = L.map('map').setView([20, 0], 3);
+            L.tileLayer('https://stamen-tiles.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg', {
+                attribution: '&copy; | React.js | Amazing Race location data scraped from <a href="https://amazingrace.fandom.com/wiki/The_Amazing_Race_Wiki">Amazing Race Wiki</a> | Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.',
+                maxZoom: 15,
+                minZoom: 2,
+                id: 'mapbox/streets-v11'
+            }).addTo(map);
+
+            var customIcon = L.icon({
+                iconUrl: './images/marker.jpg',
+                iconSize: [40, 40]
+            });
+            var colors = ['red', 'black', 'yellow', 'purple', 'green']
+            var onMap = 1;
+            var layerGroup = L.layerGroup().addTo(map);
+
+            
+
+            
+        check();
+        </script>
+    </body>
+
+
+</html>
