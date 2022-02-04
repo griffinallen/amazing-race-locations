@@ -81,7 +81,6 @@
                 <div class="toggle-button-container"><label for="s5">5</label><input type="checkbox" id="s5" class="toggle-button" onclick="check()" /></div>
                 <div class="toggle-button-container"><label for="s6">6</label><input type="checkbox" id="s6" class="toggle-button" onclick="check()" /></div>
                 <div class="toggle-button-container"><label for="s7">7</label><input type="checkbox" id="s7" class="toggle-button" onclick="check()" /></div>
-                <div class="toggle-button-container"><label for="s8">8</label><input type="checkbox" id="s8" class="toggle-button" onclick="check()" /></div>
                 <div class="toggle-button-container"><label for="s9">9</label><input type="checkbox" id="s9" class="toggle-button" onclick="check()" /></div>
                 <div class="toggle-button-container"><label for="s10">10</label><input type="checkbox" id="s10" class="toggle-button" onclick="check()" /></div>
                 <div class="toggle-button-container"><label for="s11">11</label><input type="checkbox" id="s11" class="toggle-button" onclick="check()" /></div>
@@ -91,6 +90,8 @@
                 <div class="toggle-button-container"><label for="s15">15</label><input type="checkbox" id="s15" class="toggle-button" onclick="check()" /></div>
                 <div class="toggle-button-container"><label for="s16">16</label><input type="checkbox" id="s16" class="toggle-button" onclick="check()" /></div>
                 <div class="toggle-button-container"><label for="s17">17</label><input type="checkbox" id="s17" class="toggle-button" onclick="check()" /></div>
+            </div>
+            <div class="all-toggle-buttons">
                 <div class="toggle-button-container"><label for="s18">18</label><input type="checkbox" id="s18" class="toggle-button" onclick="check()" /></div>
                 <div class="toggle-button-container"><label for="s19">19</label><input type="checkbox" id="s19" class="toggle-button" onclick="check()" /></div>
                 <div class="toggle-button-container"><label for="s20">20</label><input type="checkbox" id="s20" class="toggle-button" onclick="check()" /></div>
@@ -108,7 +109,7 @@
                 <div class="toggle-button-container"><label for="s32">32</label><input type="checkbox" id="s32" class="toggle-button" onclick="check()" /></div>
                 <div class="toggle-button-container"><label for="s33">33</label><input type="checkbox" id="s33" class="toggle-button" onclick="check()" /></div>
             </div>
-
+            <h8>No season 8 (hosted entirely in the United States)</h4>
         </div>
         <div id="map">
         </div>
@@ -121,24 +122,29 @@
             function check(){
                 var seasons_selected = []
                 layerGroup.clearLayers();
-                for (var z=1; z<amazing_race_data.length; z++){
-                    if (document.getElementById("s"+z).checked) seasons_selected.push(z);
+                for (var z=1; z<=amazing_race_data.length; z++){
+                    if (z==8) continue;
+                    if (document.getElementById("s"+z).checked) seasons_selected.push(z-1);
                 }
                 console.log(seasons_selected)
+                
 
-                var toMarkers = [[]]
+                
             
                 var totalCount = 0;
                 var totalmCount = 0;
+                
                 console.log("hi there")
                 console.log(seasons_selected)
                 for (s of seasons_selected){
+                    var toMarkers = [[]]
                     var count = 0;
                     var mCount = 0;
+                    console.log(s)
                     for (var i=1; i<Object.keys(amazing_race_data[s]).length-1; i++){
                         if (amazing_race_data[s][i]=="" || amazing_race_data[s][i+1]=="") break;
                         if (amazing_race_data[s][i][1]!=amazing_race_data[s][i+1][1]){
-                            toMarkers[totalmCount] = [
+                            toMarkers[mCount] = [
                                 amazing_race_data[s][i][0],
                                 totalmCount, 
                                 mCount,
@@ -149,25 +155,29 @@
                             ]
                             mCount++;
                             totalmCount++;
+                            console.log("added")
                         }
                         count++;
                         totalCount++;
                     }
-            }
-            console.log(toMarkers);
+                    var latlngs = []
+                    if (toMarkers[0].length>0){
+                        toMarkers.forEach(m => {
+                            var marker = L.marker([m[3][0], m[3][1]], {icon:customIcon}).addTo(layerGroup).bindPopup(m[2]+1 + ": " + m[0]);
+                            latlngs.push([m[3][0], m[3][1]])
+                        });
 
-            latlngs = []
+                    }
+                    
+                    console.log(toMarkers);
 
-            
-                
-            toMarkers.forEach(m => {
-                var marker = L.marker([m[3][0], m[3][1]], {icon:customIcon}).addTo(layerGroup).bindPopup(m[2]+1 + ": " + m[0]);
-                latlngs.push([m[3][0], m[3][1]])
-            });
-            var polyline = L.polyline(latlngs, {color: "black" }).addTo(layerGroup);
-
+                    var r = Math.floor(Math.random()*255);
+                    var g = Math.floor(Math.random()*255);
+                    var b = Math.floor(Math.random()*100);
+                    var randColor = "rgb("+r+","+g+","+b+")";
+                    var polyline = L.polyline(latlngs, {color: randColor}).addTo(layerGroup);
+                }
             // colors[seasons_selected.length%4]
-            
             }
             
 
@@ -182,7 +192,7 @@
 
             var customIcon = L.icon({
                 iconUrl: './images/marker.jpg',
-                iconSize: [40, 40]
+                iconSize: [30, 30]
             });
             var colors = ['red', 'black', 'yellow', 'purple', 'green']
             var onMap = 1;
